@@ -41,28 +41,23 @@ def playRound(board: Board): (Int, Int) = {
 
   // Copy the board to a variable we can edit
   var answer = board
-
   var correctPlace = 0
   var correctColor = 0
-
   var guessLeftovers = ""
   var answerLeftovers = ""
 
   // Find all the guessed colors in matching places with the answer
   // Leftover colors get appended to strings, searched for colors in the wrong place later
-  var ind = 0
   for (ind <- 0 until guess.length) {
       if (answer(ind) == guess(ind)) then 
         correctPlace += 1
       else 
         guessLeftovers += guess(ind)
         answerLeftovers += answer(ind)
-
   }
 
   // Search for matching colors in what's left of the guess and answer
   // Remove from both if a match is found!
-  ind = 0
   for (ind <- 0 until guessLeftovers.length) {
       val checkInd = answerLeftovers.indexOf(guessLeftovers(0))
       if (checkInd != -1) then 
@@ -72,9 +67,7 @@ def playRound(board: Board): (Int, Int) = {
       // Remove the color that we've checked
       guessLeftovers = guessLeftovers.substring(1)
       
-
   }
-
   (correctPlace, correctColor)
 }
 
@@ -113,7 +106,7 @@ def scoreGuess(board: Board, guess: Board): (Int, Int) = {
   */
 
 // When true, the program will print out the board at the start of the game
-val DEBUG = true
+val DEBUG = false
 
 @main
 def mastermind() = {
