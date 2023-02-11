@@ -70,7 +70,7 @@ def playRound(board: Board): (Int, Int) = {
         // Drop only the matching color in the answer using take and drop
         answerLeftovers = answerLeftovers.take(checkInd) + answerLeftovers.drop(checkInd+1)
       // Remove the color that we've checked
-      guessLeftovers.substring(1)
+      guessLeftovers = guessLeftovers.substring(1)
       
 
   }
