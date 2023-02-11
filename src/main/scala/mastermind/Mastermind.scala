@@ -24,10 +24,60 @@ def getRandomBoard(): Board =
   makeBoardFromColors(getRandomColor(), getRandomColor(), getRandomColor(), getRandomColor())
 
 /** Play one round of the game */
-def playRound(board: Board): (Int, Int) =
-  ???
-  // get the four guesses via input
-  // figure out best string ops to find correct place and color
+def playRound(board: Board): (Int, Int) = {
+
+  // Get the four guesses from the user
+  print("Enter a guess for spot 1: ")
+  val spot1 = readLine()
+  print("Enter a guess for spot 2: ")
+  val spot2 = readLine()
+  print("Enter a guess for spot 3: ")
+  val spot3 = readLine()
+  print("Enter a guess for spot 4: ")
+  val spot4 = readLine()
+
+  // Combine the guesses into a string
+  var guess = s"$spot1$spot2$spot3$spot4"
+
+  // Copy the board to a variable we can edit
+  var answer = board
+
+  var correctPlace = 0
+  var correctColor = 0
+
+  var guessLeftovers = ""
+  var answerLeftovers = ""
+
+  // Find all the guessed colors in matching places with the answer
+  // Leftover colors get appended to strings, searched for colors in the wrong place later
+  var ind = 0
+  for (ind <- 0 until guess.length) {
+      if (answer(ind) == guess(ind)) then 
+        correctPlace += 1
+      else 
+        guessLeftovers += guess(ind)
+        answerLeftovers += answer(ind)
+
+  }
+
+  // Search for matching colors in what's left of the guess and answer
+  // Remove from both if a match is found!
+  ind = 0
+  for (ind <- 0 until guessLeftovers.length) {
+      val checkInd = answerLeftovers.indexOf(guessLeftovers(0))
+      if (checkInd != -1) then 
+        correctColor += 1
+        // Drop only the matching color in the answer using take and drop
+        answerLeftovers = answerLeftovers.take(checkInd) + answerLeftovers.drop(checkInd+1)
+      // Remove the color that we've checked
+      guessLeftovers.substring(1)
+      
+
+  }
+
+  (correctPlace, correctColor)
+}
+
 
 /** Score a guess
   *
